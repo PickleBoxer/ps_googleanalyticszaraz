@@ -1,0 +1,31 @@
+{
+    "name": "pickleboxer/ps_googleanalyticszaraz",
+    "description": "PrestaShop module ps_googleanalyticszaraz",
+    "license": "AFL-3.0",
+    "authors": [
+        {
+            "name": "PickleBoxer",
+            "email": "matic.vertacnik@icloud.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.3"
+    },
+    "require-dev": {
+        "prestashop/php-dev-tools": "3.*"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "optimize-autoloader": true,
+        "prepend-autoloader": false
+    },
+    "autoload": {
+        "classmap": [
+            "ps_googleanalyticszaraz.php",
+            "controllers",
+            "classes"
+        ]
+    },
+    "type": "prestashop-module",
+    "author": "PickleBoxer"
+}

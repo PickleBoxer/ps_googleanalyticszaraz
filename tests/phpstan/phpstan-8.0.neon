@@ -1,0 +1,8 @@
+includes:
+	- %currentWorkingDirectory%/tests/phpstan/phpstan.neon
+
+parameters:
+	ignoreErrors:
+		- '#PrestaShop\\Module\\Ps_GoogleanalyticsZaraz\\Handler\\ModuleHandler::uninstallModule\(\) calls parent::uninstall\(\) but PrestaShop\\Module\\Ps_GoogleanalyticsZaraz\\Handler\\ModuleHandler does not extend any class.#'
+		- '#Access to an undefined property Cookie\:\:\$gaz_admin_order.#'
+		- '#Access to an undefined property Cookie\:\:\$gaz_admin_refund.#'

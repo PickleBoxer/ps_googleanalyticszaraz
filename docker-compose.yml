@@ -1,0 +1,54 @@
+name: flashlight-develop-a-module
+services:
+  prestashop:
+    image: prestashop/prestashop-flashlight:latest
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      - PS_DOMAIN=localhost:8000
+      # - POST_SCRIPTS_DIR=/tmp/init-scripts
+    ports:
+      - 127.0.0.1:8000:80
+    volumes:
+      # - ./init-scripts:/tmp/init-scripts
+      - type: bind
+        source: ./ # local path to the module
+        target: /var/www/html/modules/ps_googleanalyticszaraz # path to be mounted in the container
+      # Add the PHP configuration file to the container
+      - type: bind
+        source: ./Docker/php/docker-php-ext-custom.ini
+        target: /usr/local/etc/php/conf.d/docker-php-ext-custom.ini
+
+  mysql:
+    image: mariadb:lts
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=prestashop
+      - MYSQL_PASSWORD=prestashop
+      - MYSQL_ROOT_PASSWORD=prestashop
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=prestashop
+
+  php:
+    image: phpdockerio/php74-cli
+    profiles: [build]
+    volumes:
+      - ./:/var/www/html/modules/ps_googleanalyticszaraz
+    working_dir: /var/www/html/modules/ps_googleanalyticszaraz
+    environment:
+      _PS_ROOT_DIR_: /var/www/html
+
+  node:
+    image: node:13.1
+    profiles: [build]
+    volumes:
+      - ./:/var/www/html/modules/ps_googleanalyticszaraz
+    working_dir: /var/www/html/modules/ps_googleanalyticszaraz
+    environment:
+      PATH: /var/www/html/_dev/node_modules/.bin/:$PATH

@@ -1,0 +1,8 @@
+vendor/
+node_modules/
+/config_*.xml
+.php_cs.cache
+.idea
+.env
+log/
+yaml/

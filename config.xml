@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>ps_googleanalyticszaraz</name>
+    <displayName><![CDATA[Google Analytics with Zaraz Integration]]></displayName>
+    <version><![CDATA[5.0.2]]></version>
+    <description><![CDATA[Gain clear insights into important metrics about your customers, using Google Analytics with Zaraz integration]]></description>
+    <author><![CDATA[PickleBoxer]]></author>
+    <tab><![CDATA[analytics_stats]]></tab>
+	<confirmUninstall><![CDATA[Are you sure you want to uninstall Google Analytics with Zaraz integration? You will lose all the data related to this module.]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>

@@ -1,0 +1,102 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/docker-existing-docker-compose
+{
+	"name": "Existing Docker Compose (Extend)",
+
+	// Update the 'dockerComposeFile' list if you have more compose files or use different names.
+	// The .devcontainer/docker-compose.yml file contains any overrides you need/want to make.
+	"dockerComposeFile": [
+		"../docker-compose.yml",
+		"docker-compose.yml"
+	],
+
+	// The 'service' property is the name of the service for the container that VS Code should
+	// use. Update this value and .devcontainer/docker-compose.yml to the real service name.
+	"service": "prestashop",
+
+	// The optional 'workspaceFolder' property is the path VS Code should open by default when
+	// connected. This is typically a file mount in .devcontainer/docker-compose.yml
+	"workspaceFolder": "/var/www/html/modules/${localWorkspaceFolderBasename}",
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": "true",
+            "configureZshAsDefaultShell": "true",
+            "upgradePackages": "true"
+        },
+		"ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {
+			"omzPlugins": "https://github.com/zsh-users/zsh-autosuggestions https://github.com/zsh-users/zsh-syntax-highlighting.git",
+			"username": "www-data"
+		}
+		//"ghcr.io/devcontainers/features/git:1": {
+        //    "version": "latest",
+        //    "ppa": "false"
+        //}
+		//"ghcr.io/cirolosapio/devcontainers-features/alpine-ohmyzsh:0": {}
+		//"ghcr.io/devcontainers/features/node:1": {},
+	},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Uncomment the next line if you want start specific services in your Docker Compose config.
+	// "runServices": [],
+
+	// Uncomment the next line if you want to keep your containers running after VS Code shuts down.
+	// "shutdownAction": "none",
+
+	// Uncomment the next line to run commands after the container is created.
+	// "postCreateCommand": "cat /etc/os-release",
+
+  	// A command to run each time a tool has successfully attached to the container.
+  	// Fix the zsh plugins installation features/zsh-plugins and add oh-my-posh.
+	"postAttachCommand": "sed -i -e \"s/plugins=.*/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/g\" \"/home/www-data/.zshrc\" && curl -s https://ohmyposh.dev/install.sh | bash -s && echo 'eval \"$(oh-my-posh init zsh)\"' >> \"/home/www-data/.zshrc\"",
+
+	// Configure tool-specific properties.
+	// "customizations": {},
+	"customizations": {
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": {
+				"php.validate.executablePath": "/usr/local/bin/php",
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"terminal.integrated.profiles.linux": {
+				"bash": {
+					"path": "bash",
+					"icon": "terminal-bash"
+					},
+					"zsh": {
+						"path": "zsh"
+					},
+					"fish": {
+						"path": "fish"
+					},
+					"tmux": {
+						"path": "tmux",
+						"icon": "terminal-tmux"
+					},
+					"pwsh": {
+						"path": "pwsh",
+						"icon": "terminal-powershell"
+					}
+				}
+			},
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"xdebug.php-pack",
+				"DEVSENSE.phptools-vscode",
+				"aswinkumar863.smarty-template-support",
+				"esbenp.prettier-vscode",
+				"EditorConfig.EditorConfig",
+				"streetsidesoftware.code-spell-checker",
+				"oderwat.indent-rainbow"
+			]
+		}
+	},
+
+	// Set `remoteUser` to `root` to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "devcontainer"
+	"remoteUser": "www-data"
+}
