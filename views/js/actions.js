@@ -42,17 +42,37 @@ $(document).ready(function () {
 
     wishlistButtons.forEach(button => {
         button.addEventListener('click', function () {
-            let article = this.closest('article[data-id-product]');
-            let idProduct = article.getAttribute('data-id-product');
-            let nameProduct = article.querySelector('.product-title').textContent;
+            // Check if this is a product detail page wishlist button
+            if (this.classList.contains('wishlist-button-product')) {
+                // For product detail page
+                let idProduct = document.getElementById('product_page_product_id')?.value;
+                let nameProduct = document.querySelector('.col-md-6 h1.h1')?.textContent.trim();
 
-            if (!nameProduct) {
-                return;
+                if (!nameProduct || !idProduct) {
+                    return;
+                }
+
+                zaraz.ecommerce('Product Added to Wishlist', {
+                    product_id: idProduct,
+                    name: nameProduct,
+                });
+            } else {
+                // For catalog/listing pages
+                let article = this.closest('article[data-id-product]');
+                if (!article) return;
+
+                let idProduct = article.getAttribute('data-id-product');
+                let nameProduct = article.querySelector('.product-title').textContent;
+
+                if (!nameProduct) {
+                    return;
+                }
+
+                zaraz.ecommerce('Product Added to Wishlist', {
+                    product_id: idProduct,
+                    name: nameProduct,
+                });
             }
-            zaraz.ecommerce('Product Added to Wishlist', {
-                product_id: idProduct,
-                name: nameProduct,
-            });
         });
     });
 
