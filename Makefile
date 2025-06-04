@@ -44,3 +44,8 @@ build-zip-prod: build-back-prod build-zip
 # target: php-cs-fixer                    - Run PHP CS Fixer in dry-run mode
 php-cs-fixer:
 	docker-compose run --rm php sh -c "php vendor/bin/php-cs-fixer fix --dry-run"
+
+.PHONY: clean
+# target: clean                           - Remove Docker and other custom folders/files
+clean:
+	rm -rf Docker
