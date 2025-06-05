@@ -48,4 +48,4 @@ php-cs-fixer:
 .PHONY: clean
 # target: clean                           - Remove Docker and other custom folders/files
 clean:
-	rm -rf Docker
+	rm -rf Docker init-scripts .devcontainer .gitattributes .php-cs-fixer.dist.php
